@@ -1,60 +1,41 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const SnackBarDemo());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  static const appTitle = 'Drawer Demo';
+class SnackBarDemo extends StatelessWidget {
+  const SnackBarDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: appTitle,
-      home: MyHomePage(title: appTitle),
+    return MaterialApp(
+      title: 'SnackBar Demo',
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('SnackBar Demo'),
+          ),
+          body: const SnackBarPage()),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class SnackBarPage extends StatelessWidget {
+  const SnackBarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('My Page!')),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          final snackBar = SnackBar(
+            content: const Text('Yay! A SnackBar!'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {},
             ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        },
+        child: const Text('Show SnackBar'),
       ),
     );
   }
