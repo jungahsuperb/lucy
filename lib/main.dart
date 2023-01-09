@@ -1,55 +1,42 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var a = 1;
+  var name = ['한상흠', '한지윤', '한재희'];
+  var like = [0, 0, 0];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(),
-          body: ListView.builder(
-            itemCount: 300,
-            itemBuilder: (c,i){
-              return ListTile(
-                leading: Icon(Icons.pages),
-                title: Text('홍길동'),
-              );
-            },
-
-            ),
-          bottomNavigationBar: Homework()
-
-          ),
-        );
-
-  }
-}
-
-class Homework extends StatelessWidget {
-  const Homework({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return BottomAppBar(
-      child: Container(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.phone),
-            Icon(Icons.message),
-            Icon(Icons.pages)
-          ],
-        ),
-      ),
-    );
+          floatingActionButton: FloatingActionButton(onPressed: (){},
+          child: Text('edd'),),
+            appBar: AppBar(),
+            body: ListView.builder(
+                itemCount: 3,
+                itemBuilder: (context, i) {
+                  return ListTile(
+                      title: Text(name[i]),
+                      leading: Text(like[i].toString()),
+                      trailing: ElevatedButton(
+                        child: Text('좋아요'),
+                        onPressed: () {
+                          setState(() {
+                            like[i]++;
+                          });
+                        },
+                      ));
+                })));
   }
 }
