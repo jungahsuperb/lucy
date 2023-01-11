@@ -27,16 +27,35 @@ class _MyAppState extends State<MyApp> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                      content: Text(style: TextStyle(fontSize: 20), 'Contact'),
-                      actions: [
-                        TextField(),
-                        TextButton(style: TextButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20),
-                        ),
-                        onPressed: null,
-                        child: const Text('cancel'),)
-                  ]
-                  ,
+                    content: Text(
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        'Contact'),
+                    actions: [
+                      TextField(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'))
+                        ],
+                      )
+                    ],
                   );
                 });
           },
