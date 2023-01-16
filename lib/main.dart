@@ -14,9 +14,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var a = 1;
+  var total = 3;
   var name = ['joseph', 'shushu', 'kelly'];
   var like = [0, 0, 0];
+
+  addname(a) {
+    setState(() {
+      if (a != '') {
+        name.add(a);
+      }
+    });
+  }
+
+  addOne() {
+    setState(() {
+      total++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,49 +40,59 @@ class _MyAppState extends State<MyApp> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return AlertDialog(
-                    content: Text(
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                        'Contact'),
-                    actions: [
-                      TextField(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 20),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('OK'))
-                        ],
-                      )
-                    ],
-                  );
+                  return DialogUI(addOne: addOne, addName: addname);
                 });
           },
           child: Text('edd'),
         ),
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(total.toString()),
+        ),
         body: ListView.builder(
-            itemCount: 3,
+            itemCount: name.length,
             itemBuilder: (c, i) {
               return ListTile(
-                leading: Icon(Icons.headphones),
-                title: Text(name[i]),
+                  leading: Icon(Icons.headphones),
+                  title: Text(name[i]),
+                  trailing: ElevatedButton(onPressed: (){}, child: Text('delete'),)
               );
             }));
+  }
+}
+
+class DialogUI extends StatelessWidget {
+  DialogUI({Key? key, this.addOne, this.addName}) : super(key: key);
+  final addOne;
+  final addName;
+  var inputData = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        width: 300,
+        height: 300,
+        child: Column(
+          children: [
+            TextField(
+              controller: inputData,
+            ),
+            TextButton(
+                onPressed: () {
+                  addOne();
+                  addName(inputData.text);
+                  Navigator.pop(context);
+                },
+                child: Text('완료')),
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('취소'))
+          ],
+        ),
+      ),
+    );
   }
 }
