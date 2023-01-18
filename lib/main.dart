@@ -16,12 +16,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var total = 3;
   var name = ['joseph', 'shushu', 'kelly'];
+  var phone = ['123', '345', '456'];
   var like = [0, 0, 0];
 
   addname(a) {
     setState(() {
       if (a != '') {
         name.add(a);
+      }
+    });
+  }
+
+  addphone(p){
+    setState(() {
+      if(p != ''){
+        phone.add(p);
       }
     });
   }
@@ -40,10 +49,10 @@ class _MyAppState extends State<MyApp> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return DialogUI(addOne: addOne, addName: addname);
+                  return DialogUI(addOne: addOne, addName: addname, addPhone: addphone,);
                 });
           },
-          child: Text('edd'),
+          child: Text('add'),
         ),
         appBar: AppBar(
           title: Text(total.toString()),
@@ -53,18 +62,25 @@ class _MyAppState extends State<MyApp> {
             itemBuilder: (c, i) {
               return ListTile(
                   leading: Icon(Icons.headphones),
-                  title: Text(name[i]),
-                  trailing: ElevatedButton(onPressed: (){}, child: Text('delete'),)
-              );
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text(name[i]), Text(phone[i])]),
+                  //Text(name[i]),
+                  trailing: ElevatedButton(
+                    onPressed: () {},
+                    child: Text('delete'),
+                  ));
             }));
   }
 }
 
 class DialogUI extends StatelessWidget {
-  DialogUI({Key? key, this.addOne, this.addName}) : super(key: key);
+  DialogUI({Key? key, this.addOne, this.addName, this.addPhone}) : super(key: key);
   final addOne;
   final addName;
+  final addPhone;
   var inputData = TextEditingController();
+  var phoneData = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +94,14 @@ class DialogUI extends StatelessWidget {
             TextField(
               controller: inputData,
             ),
+            TextField(
+              controller: phoneData,
+            ),
             TextButton(
                 onPressed: () {
                   addOne();
                   addName(inputData.text);
+                  addPhone(phoneData.text);
                   Navigator.pop(context);
                 },
                 child: Text('완료')),
