@@ -15,8 +15,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var total = 3;
-  var name = ['joseph', 'shushu', 'kelly'];
-  var phone = ['123', '345', '456'];
+  List<String> name = ['joseph', 'shushu', 'kelly'];
+  List<String> phone = ['123', '345', '456'];
   var like = [0, 0, 0];
 
   addname(a) {
@@ -27,9 +27,9 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  addphone(p){
+  addphone(p) {
     setState(() {
-      if(p != ''){
+      if (p != '') {
         phone.add(p);
       }
     });
@@ -49,7 +49,11 @@ class _MyAppState extends State<MyApp> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return DialogUI(addOne: addOne, addName: addname, addPhone: addphone,);
+                  return DialogUI(
+                    addOne: addOne,
+                    addName: addname,
+                    addPhone: addphone,
+                  );
                 });
           },
           child: Text('add'),
@@ -63,19 +67,24 @@ class _MyAppState extends State<MyApp> {
               return ListTile(
                   leading: Icon(Icons.headphones),
                   title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(name[i]), Text(phone[i])]),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text(name[i]), Text(phone[i])]),
                   //Text(name[i]),
-                  trailing: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('delete'),
+                  trailing: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        name.removeAt(i);
+                        phone.removeAt(i);
+                      });
+                    }, icon: Icon(Icons.delete),
                   ));
             }));
   }
 }
 
 class DialogUI extends StatelessWidget {
-  DialogUI({Key? key, this.addOne, this.addName, this.addPhone}) : super(key: key);
+  DialogUI({Key? key, this.addOne, this.addName, this.addPhone})
+      : super(key: key);
   final addOne;
   final addName;
   final addPhone;
