@@ -48,6 +48,6 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>
-	<string>님 폰의 연락처 권한이 필요합니다. 제발..</string>
+    <string>This app requires contacts access to function properly.</string>
 </dict>
 </plist>

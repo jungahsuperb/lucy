@@ -37,10 +37,6 @@ class _MyAppState extends State<MyApp> {
   List<String> phone = ['123', '345', '456'];
   var like = [0, 0, 0];
   var newContact = new Contact();
-
-
-
-
   //var contacts = await ContactsService.getContacts();
 
   addname(a) {
@@ -88,6 +84,7 @@ class _MyAppState extends State<MyApp> {
                   addName: addname,
                   addPhone: addphone,
                   addnewContact: addnewContact,
+
                 );
               });
         },
